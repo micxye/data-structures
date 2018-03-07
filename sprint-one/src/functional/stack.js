@@ -10,7 +10,7 @@ var Stack = function() {
   someInstance.push = function(value) {
     count++;
     key = (Number(key)+1).toString();
-    someInstance[key] = value;
+    storage[key] = value;
   };
 
   someInstance.pop = function() {
@@ -18,8 +18,8 @@ var Stack = function() {
       count--;
     }
     key = (Number(key)-1).toString();
-    lastDeleted = someInstance[(Number(key)+1).toString()];
-    delete someInstance[(Number(key)+1).toString()];
+    lastDeleted = storage[(Number(key)+1).toString()];
+    delete storage[(Number(key)+1).toString()];
     return lastDeleted;
   };
 
