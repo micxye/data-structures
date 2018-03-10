@@ -14,7 +14,20 @@ treeMethods.addChild = function(value) {
   
   var child = Tree(value);
   this.children.push(child);
+  child.parent = this;
   
+};
+
+treeMethods.removeFromParent = function() {
+  var parentsChildren = this.parent.children;
+  var childToRemove = this.value;
+  parentsChildren.forEach(function(child, index) {
+    if (child.value === childToRemove) {
+      parentsChildren.splice(index, 1); 
+    }
+  })
+  
+  this.parent = undefined;
 };
 
 treeMethods.contains = function(target) {
