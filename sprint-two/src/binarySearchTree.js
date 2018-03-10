@@ -28,27 +28,38 @@ BinarySearchTree.prototype.contains = function(value) {
   // whether or not the value is contained in the tree.
   if (this.value === value) {
     return true;
-  } else {
-    if (value > this.value) {
-      if (this.right) {
-        return this.right.contains(value);
-      }
-    } else {
-      if (this.left) {
-        return this.left.contains(value); 
-      }
+  }
+  
+  if (value > this.value) {
+    if (this.right) {
+      return this.right.contains(value);
     }
   }
+  
+  if (this.left) {
+    return this.left.contains(value); 
+  }
+  
   return false;
   // returns a boolean
 };
 
 BinarySearchTree.prototype.depthFirstLog = function(callback) {
   // accepts a callback and executes it on every value contained in the tree.
+  callback(this.value);
+  if (this.left) {
+    this.left.depthFirstLog(callback);
+  }
+  if (this.right) {
+    this.right.depthFirstLog(callback);
+  }
 };
 
 
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ insert = O(log(n))
+ contains = O(log(n))
+ depthFirstLog = O(n)
  */
