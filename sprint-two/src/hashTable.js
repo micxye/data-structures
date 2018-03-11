@@ -12,7 +12,7 @@ HashTable.prototype.insert = function(k, v) {
   
   if (!bucket) {
     bucket = [];
-    this._storage.set(index, bucket)
+    this._storage.set(index, bucket);
   } 
   
   var found = false;
@@ -24,13 +24,13 @@ HashTable.prototype.insert = function(k, v) {
     }
   }
   
-  if(!found) {
-    bucket.push([k,v]);
+  if (!found) {
+    bucket.push([k, v]);
     this._count++;
   
   
     if (this._count > this._limit * .75) {
-      this.resize(this._limit * 2)
+      this.resize(this._limit * 2);
     }
   }
   
@@ -59,7 +59,7 @@ HashTable.prototype.remove = function(k) {
   var bucket = this._storage.get(index);
   
   if (!bucket) {
-    return undefined
+    return undefined;
   } 
   
   for (var i = 0; i < bucket.length; i++) {
@@ -68,7 +68,7 @@ HashTable.prototype.remove = function(k) {
       bucket.splice(i, 1);
       this._count--;
       if (this._count < this._limit * .25) {
-        this.resize(this._limit / 2)
+        this.resize(this._limit / 2);
       }
       return tuple[1];
     }
@@ -87,15 +87,15 @@ HashTable.prototype.resize = function(newLimit) {
   var context = this;
   
   oldStorage.each(function(bucket) {
-    if(!bucket) {
+    if (!bucket) {
       return;
     }
     for (var i = 0; i < bucket.length; i++) {
-      var tuple = bucket[i]
+      var tuple = bucket[i];
       context.insert(tuple[0], tuple[1]);
     }
-  })
-}
+  });
+};
 
 
 /*
