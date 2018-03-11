@@ -1,4 +1,4 @@
-var LinkedList = function() {
+var DoublyLinkedList = function() {
   var list = {};
   list.head = null;
   list.tail = null;
@@ -11,19 +11,48 @@ var LinkedList = function() {
       list.head = newNode;
       list.tail = newNode;
     } else if (list.head === list.tail) { //second entry
+      var previous = list.head;
       list.tail = newNode;
       list.head.next = newNode;
+      newNode.previous = previous;
     } else { // all other entries
+      var previous = list.tail;
       list.tail.next = newNode;
       list.tail = newNode;
+      newNode.previous = previous;
     }
     
+  };
+
+  list.addToHead = function(value) {
+    //method which takes a value and adds it to the front of the list.
+    var newNode = Node(value);
+    if (list.head === null) { //first entry
+      list.head = newNode;
+      list.tail = newNode;
+    } else if (list.head === list.tail) { //second entry
+      list.head = newNode;
+      newNode.next = list.tail;
+      list.tail.previous = newNode;
+    } else { // all other entries
+      var lastHead = list.head;
+      list.head = newNode;
+      lastHead.previous = newNode;
+      newNode.next = lastHead;
+    }
   };
 
   list.removeHead = function() {
     //removes the first node from the list and returns its value
     var removedVal = list.head.value;
     list.head = list.head.next;
+    return removedVal;
+  };
+
+  list.removeTail = function() {
+    //method which removes the last node from the list and returns its value.
+    var removedVal = list.tail.value;
+    list.tail = list.tail.previous;
     return removedVal;
   };
 
@@ -60,14 +89,6 @@ var Node = function(value) {
   
   node.value = value;
   node.next = null;
-
+  node.previous = null;
   return node;
 };
-
-/*
- * Complexity: What is the time complexity of the above functions?
- addToTail & removeHead are O(1) constant
- contains is O(n) linear
- */
-
-// var newList = LinkedList();
