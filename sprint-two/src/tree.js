@@ -25,7 +25,7 @@ treeMethods.removeFromParent = function() {
     if (child.value === childToRemove) {
       parentsChildren.splice(index, 1); 
     }
-  })
+  });
   
   this.parent = undefined;
 };
